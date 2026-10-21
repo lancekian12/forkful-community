@@ -1,9 +1,23 @@
-import MainHeader from "@/components/main-header/main-header";
+import type { Metadata } from "next";
+import { Fraunces, Inter } from "next/font/google";
+import SiteHeader from "@/components/site-header";
+import SiteFooter from "@/components/site-footer";
 import "./globals.css";
 
-export const metadata = {
-  title: "NextLevel Food",
-  description: "Delicious meals, shared by a food-loving community.",
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT"],
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+export const metadata: Metadata = {
+  title: {
+    default: "Forkful — a community cookbook",
+    template: "%s · Forkful",
+  },
+  description:
+    "Discover, cook and share home recipes from a community of food lovers.",
 };
 
 export default function RootLayout({
@@ -12,10 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <MainHeader />
-        {children}
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+      <body className="flex min-h-dvh flex-col">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
